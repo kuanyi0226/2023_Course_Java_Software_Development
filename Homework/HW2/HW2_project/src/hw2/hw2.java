@@ -1,9 +1,10 @@
 package hw2;
 
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 public class hw2 {
-
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		int inputNum = scanner.nextInt();
@@ -32,8 +33,7 @@ public class hw2 {
 				}
 			}
 		}
-		
-
 	}
-
 }
+
+
