@@ -40,13 +40,22 @@ public class Hw4 {
 		trumpPlayer = 0;
 		trumpNumber = tempString.charAt(0) - '0';
 		trumpShape = tempString.charAt(1);
+		
 		while (!startGame) {
+			if(trumpNumber > 3) {
+				System.out.println("ERROR");
+				break;
+			}
 			if(currentPlayer >= 3) {
 				currentPlayer = 0;
 			}else
 				currentPlayer++;
 			
 			tempString = scanner.next();
+			if(trumpNumber > 3) {
+				System.out.println("ERROR");
+				break;
+			}
 			if(tempString.equals("pass")) { //important: can't use tempString == "pass"
 				passTimes++;
 				if(passTimes == 3) {
@@ -56,7 +65,7 @@ public class Hw4 {
 				passTimes = 0;
 				tempNum = tempString.charAt(0) - '0';
 				tempChar = tempString.charAt(1);
-				if((tempNum == trumpNumber && tempChar < trumpShape) || (tempNum > trumpNumber)) {
+				if((tempChar < trumpShape) || (tempChar >= trumpShape && tempNum > trumpNumber)) {
 					trumpPlayer = currentPlayer;
 					trumpNumber = tempNum;
 					trumpShape = tempChar;
@@ -86,6 +95,7 @@ public class Hw4 {
 				winnerShape = 'D';
 				//4 players
 				for(int j = 0; j < 4; j++) {
+					//System.out.println(currentPlayer);
 					//(1)Scan
 					tempString = scanner.next();
 					if(tempString.length() == 2) { //1~9
@@ -116,7 +126,7 @@ public class Hw4 {
 					//same shape
 					if(tempCard.shape == winnerShape) {
 						if((tempCard.number == 1) || 
-							(tempCard.number > 1 && tempCard.number > winnerNumber)) {
+							(tempCard.number > 1 && tempCard.number > winnerNumber && winnerNumber != 1)) {
 							winnerPlayer = currentPlayer;
 							winnerNumber = tempCard.number;
 							winnerShape = tempCard.shape;
@@ -135,7 +145,8 @@ public class Hw4 {
 					wrongCard = false;
 					if(tempCard.shape != trumpShape && tempCard.shape != currentShape) { //use the irrelevant card
 						for(int k = 0; k < 13; k++) {
-							if(cards[currentPlayer][k].shape == currentShape &&
+							if((cards[currentPlayer][k].shape == currentShape || 
+									cards[currentPlayer][k].shape == trumpShape) &&
 									cards[currentPlayer][k].used == false) {
 								wrongCard = true; //but he did have card to use
 							}
@@ -161,6 +172,7 @@ public class Hw4 {
 				if(!hasCard || wrongCard) break;
 				//Count score
 				score[winnerPlayer]++;
+				//System.out.println(winnerPlayer);
 				
 				//output
 				if(i == 2) {
@@ -227,3 +239,4 @@ pass
 2C 1C 5C 5A
 2A 9A 12A 3A
 */
+//8 2 1 5
